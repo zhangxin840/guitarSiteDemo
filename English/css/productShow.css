@@ -1,0 +1,117 @@
+
+/*
+	Slideshow
+*/
+
+#productShow {
+	position:relative;
+}
+
+
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	Set to display none, prevents content flash
+*/
+
+#productShow .slides_container {
+	width:366px;
+	overflow:hidden;
+	float:left;
+	position:relative;
+	display:none;
+	margin-right:15px;
+}
+
+#productShow .slides_container img{
+	-moz-border-radius: 10px;
+				-webkit-border-radius: 10px;
+				border-radius: 10px;
+				-moz-box-shadow: 0 4px 10px #111;
+				-webkit-box-shadow: 0 4px 10px #111;
+				box-shadow: 0 4px 10px #111;
+}
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+#productShow .slides_container a{
+	width:366px;
+	height:274px;
+	display:block;
+}
+
+/*
+	Next/prev buttons
+*/
+
+#productShow .next,#productShow .prev {
+	position:absolute;
+	top:127px;
+	left:0;
+	width:21px;
+	height:0;
+	padding-top:21px;
+	overflow:hidden;
+	display:block;
+	z-index:101;
+}
+
+#productShow .prev {
+	background:url(../images/arrow-prev.png);
+}
+
+#productShow .next {
+	left:345px;
+	background:url(../images/arrow-next.png);
+}
+
+/*
+	Pagination
+*/
+
+#products .pagination {
+	background:#dfdfdf;
+	width:130px;
+	padding:5px 5px;
+	float:left;
+	margin-left:30px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+}
+
+#productShow .pagination img{
+	-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+				-moz-box-shadow: 1px 2px 2px #111;
+				-webkit-box-shadow: 1px 2px 2px #111;
+				box-shadow: 1px 2px 2px #111;
+}
+
+#products .pagination li {
+	float:left;
+	margin:2px 4px;
+	list-style:none;
+}
+
+#products .pagination li a {
+	display:block;
+	width:55px;
+	height:41px;
+	margin:1px;
+	float:left;
+	background:#f9f9f9;
+}
+
+#products .pagination li.current a {
+	border:1px solid #7f7f7f;
+	margin:0;
+}

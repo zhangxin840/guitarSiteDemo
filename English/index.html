@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Fullscreen Image Blur Effect with HTML5</title>
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/demo.css"/>
+		<link rel="stylesheet" type="text/css" href="css/backgroundSlider.css"/>
+		<link href='http://fonts.googleapis.com/css?family=Miltonian|Bitter' rel='stylesheet' type='text/css'/>
+		<link href='http://fonts.googleapis.com/css?family=Ultra' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="css/elastislide.css" />
+		<link rel="stylesheet" type="text/css" href="css/productShow.css" />
+
+		<script type="text/javascript" src="js/modernizr.custom.21750.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+		<script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+		<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+		<script type="text/javascript" src="js/jquery.elastislide.js"></script>
+		<script type="text/javascript" src="js/jquery.coverscroll.m.js"></script>
+		<script type="text/javascript" src="js/slides.min.jquery.js"></script>
+
+		<noscript>
+			<style>
+				.bx-loading {
+					display: none;
+				}
+			</style>
+		</noscript>
+		<style>
+			body {
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+			#wrapper {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: transparent;
+				overflow: hidden;
+			}
+			#mask {
+				width: 500%;
+				height: 100%;
+				background: transparent;
+			}
+			#navBar {
+				position: relative;
+				padding-top: 30px;
+				padding-bottom: 30px;
+				max-width: 100%;
+				margin: auto;
+				padding-left: 15%;
+				font-size: 35px;
+				background: transparent url(images/nav-back.png) repeat top left;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			#navBar a {
+				padding-right: 20px;
+				color: #eee;
+				text-decoration: none;
+				border: none;
+				outline: none;
+				font-family: 'Bitter', Arial, sans-serif;
+				text-shadow: 3px 3px 2px #222;
+			}
+			#navBar a.selected {
+				background: transparent;
+				color: #fff;
+				font-weight: 700;
+				font-size: 40px;
+			}
+
+			#carouselContainer {
+				max-width: 800px;
+				margin: auto;
+			}
+
+			#carouselContainer a {
+				text-decoration: none;
+				border: none;
+				outline: none;
+			}
+
+			.item {
+				width: 20%;
+				height: 100%;
+				float: left;
+				background: transparent;
+			}
+
+			.content {
+				max-width: 900px;
+				min-height: 60%;
+				max-height: 75%;
+				top: 19%;
+				margin: 0 auto;
+				background: transparent;
+				position: relative;
+				overflow: auto;
+				color: #eee;
+			}
+			.clear {
+				clear: both;
+			}
+
+			.title {
+				font-family: 'Ultra', Impact, serif;
+				font-weight: 700;
+				font-size: 80px;
+				text-shadow: 5px 5px 5px #222;
+				text-align: center;
+				color: #eee;
+				max-width: 500px;
+				margin: auto;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+			.navBtn {
+				position: absolute;
+			}
+
+			.navBtn img {
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+			}
+			.navBtn.down {
+				left: 50%;
+				bottom: 0px;
+				margin-left: -50px;
+			}
+			.navBtn.right {
+				top: 40%;
+				right: 0%;
+			}
+
+			.haveBack {
+				background: transparent url(images/content-back.png) repeat top left;
+				-moz-border-radius: 15px;
+				-webkit-border-radius: 15px;
+				border-radius: 15px;
+				-moz-box-shadow: 2px 3px 4px #111;
+				-webkit-box-shadow: 2px 3px 4px #111;
+				box-shadow: 2px 3px 4px #111;
+				color: #eee;
+				padding: 15px;
+			}
+
+			.aboutus {
+				background: transparent url(images/text-back.png) repeat top left;
+			}
+
+			.aboutus .company {
+				margin-top: 25px;
+			}
+
+			.aboutus .company p {
+				font-size: 20px;
+				margin-top: 15px;
+			}
+			.aboutus .contact {
+				font-size: 17px;
+			}
+
+			.aboutus .logo {
+				float: left;
+				margin-right: 20px;
+				margin-bottom: 20px;
+				box-shadow: 2px 2px 3px #222;
+			}
+
+			.news .newsContainer {
+				padding: 30px;
+			}
+
+			.newsContainer .newsTitle {
+				font-size: 30px;
+				text-align: center;
+			}
+
+			.newsContainer .newsInfo {
+				font-size: 15px;
+				text-align: center;
+			}
+			.newsContainer .newsContent {
+				font-size: 15px;
+			}
+
+			#coverScrollContainer {
+				/*border:1px solid magenta;*/
+				width: 850px;
+				height: 160px;
+				margin-top: 80px;
+			}
+
+			#coverScrollContainer img {
+				width: 100%;
+				height: 100%;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				-o-border-radius: 10px;
+				border-radius: 10px;
+				-moz-box-shadow: 0px 5px 5px #111;
+				-webkit-box-shadow: 0px 5px 5px #111;
+				box-shadow: 0px 5px 5px #111;
+			}
+			#coverScrollContainer .itemTitle {
+				padding-top: 30px;
+			}
+			#coverScrollContainer .selectedItem {
+				-moz-box-shadow: 0 4px 10px #111;
+				-webkit-box-shadow: 0 4px 10px #111;
+				box-shadow: 0 4px 10px #111;
+			}
+
+			#coverScrollContainer {
+				/*border:1px solid magenta;*/
+				width: 850px;
+				height: 200px;
+				margin-left: 25px;
+			}
+
+			#coverScrollContainer .item {
+				width: 160px;
+				height: 160px;
+				left: 0px;
+			}
+
+			#productShowContainer {
+				margin: auto;
+				width: 500px;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="bx-wrapper" class="bx-wrapper">
+			<div class="bx-container">
+				<img src="images/large/2.jpg" alt="home"/>
+				<img src="images/large/3.jpg" alt="home" />
+				<img src="images/large/7.jpg" alt="news"/>
+				<img src="images/large/7.jpg" alt="newsDetail"/>
+				<img src="images/large/10.jpg" alt="products"/>
+				<img src="images/large/10.jpg" alt="productsDetail"/>
+				<img src="images/large/6.jpg" alt="dealers"/>
+				<img src="images/large/8.jpg" alt="about"/>
+			</div>
+			<div class="bx-overlay"></div>
+			<!-- <div class="bx-content">
+			<h1>Fullscreen Image <span>Blur</span> Effect with HTML5</h1>
+			<h2>Autoplay</h2>
+			<h3>7 seconds</h3>
+			</div> -->
+			<div class="bx-loading">
+				<span>Loading...</span>
+			</div>
+		</div>
+
+		<div id="wrapper">
+			<div id="mask">
+				<div id="item1" class="item">
+					<a name="item1"></a>
+					<div class="content home">
+						<h1 class="title"> Nightwish Guitars </h1>
+						<div id="carouselContainer">
+							<div id="carousel" class="es-carousel-wrapper">
+								<div class="es-carousel">
+									<ul>
+										<li>
+											<a href="#item4" class="panel" name="products"><img src="images/medium/1.jpg" alt="image01" title="Products"/></a>
+										</li>
+										<li>
+											<a href="#item2" class="panel" name="news"><img src="images/medium/2.jpg" alt="image02" title="News"/></a>
+										</li>
+										<li>
+											<a href="#item6" class="panel" name="dealers"><img src="images/medium/4.jpg" alt="image04"  title="Dealers"/></a>
+										</li>
+										<li>
+											<a href="#item7" class="panel" name="about"><img src="images/medium/3.jpg" alt="image03"  title="About us"/></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#item4" class="panel navBtn down" name="products"> <img src="images/down-arrow.png"/></a>
+				</div>
+				<div id="item2" class="item">
+					<a name="item2"></a>
+					<div class="content news haveBack">
+						<div class = "newsContainer">
+							<h2 class="newsTitle">Videos</h2>
+							<p class="newsInfo">
+								Date 2012-6-15 16:31:33
+							</p>
+							<div class="newsContent">
+								<div class="news_edit">
+									<span id="ctl00_ContentPlaceHolder1_ENallnewsshow_spContent">
+										<p>
+											&nbsp;
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDI5NTQzNTg0.html" target="_blank">Nightwish N-10D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDI5NTM2Mzk2.html" target="_blank">Nightwish N-30D video</a>
+										</p>
+										<p>
+											&nbsp;
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDMyNTUwNTQ0.html" target="_blank">Nightwish N-600D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDI5NTE0Nzc2.html" target="_blank">Nightwish N-700D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDMyNTg5Nzg0.html" target="_blank">Nightwish N-800D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDMyNTcxNjk2.html" target="_blank">Nightwish N-900D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDMyNTkyNzQ4.html" target="_blank">Nightwish N-850D video</a>
+										</p>
+										<p>
+											<a href="http://v.youku.com/v_show/id_XNDM1NTUyNjg0.html" target="_blank">Nightwish N-980D video</a>
+										</p>
+										<p>
+											&nbsp;
+										</p></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="item3" class="item">
+					<a name="item3"></a>
+					<div class="content"></div>
+				</div>
+				<div class="clear"></div>
+
+				<div id="item4" class="item">
+					<a name="item4"></a>
+					<div class="content products haveBack">
+						<div id="productShowContainer">
+							<div id="productShow">
+								<div class="slides_container">
+									<a ><img src="images/products/detail/1.jpg" width="366"/></a>
+									<a ><img src="images/products/detail/2.jpg" width="366"/></a>
+									<a ><img src="images/products/detail/3.jpg" width="366"/></a>
+									<a ><img src="images/products/detail/4.jpg" width="366"/></a>
+									<a ><img src="images/products/detail/5.jpg" width="366"/></a>
+								</div>
+								<ul class="pagination">
+									<li>
+										<a href=""><img src="images/products/detail/1.jpg" width="55"></a>
+									</li>
+									<li>
+										<a href=""><img src="images/products/detail/2.jpg" width="55"></a>
+									</li>
+									<li>
+										<a href=""><img src="images/products/detail/3.jpg" width="55"></a>
+									</li>
+									<li>
+										<a href=""><img src="images/products/detail/4.jpg" width="55"></a>
+									</li>
+									<li>
+										<a href=""><img src="images/products/detail/5.jpg" width="55"></a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+
+						<div id="coverScrollContainer">
+							<img src="images/products/1.jpg" />
+							<img src="images/products/2.jpg" />
+							<img src="images/products/3.jpg" />
+							<img src="images/products/4.jpg" />
+							<img src="images/products/5.jpg" />
+							<img src="images/products/6.jpg" />
+							<img src="images/products/7.jpg" />
+							<img src="images/products/8.jpg" />
+							<img src="images/products/9.jpg" />
+						</div>
+
+					</div>
+				</div>
+				<div id="item5" class="item">
+					<a name="item5"></a>
+					<div class="content"></div>
+				</div>
+				<div class="clear"></div>
+
+				<div id="item6" class="item">
+					<a name="item6"></a>
+					<div class="content dealers haveBack">
+						<h1> Demo </h1>
+						<h1>Contructing...</h1>
+					</div>
+				</div>
+				<div id="item7" class="item">
+					<a name="item7"></a>
+					<div class="content aboutus haveBack">
+
+						<img src="images/logo.jpg" class="logo"/>
+
+						<div class="contact">
+							<div class="about_edit">
+								<span id="ctl00_ContentPlaceHolder1_ContactUsInfo">
+									<p>
+										Zhang Xin
+									</p>
+									<p>
+										Contact person: Mr. Zhang
+									</p>
+									<p>
+										Tel: 15888888888
+									</p>
+									<p>
+										Mobile phone: 15888888888
+									</p>
+									<p>
+										qq:&nbsp; 111111111&nbsp;&nbsp; 222222222
+									</p>
+									<p>
+										E-mail:&nbsp; <a href="mailto:nightwishguitars@163.com">nightwishguitars@163.com</a>
+									</p>
+									<p>
+										Address: Su Zhou Street
+									</p> </span>
+							</div>
+						</div>
+
+						<div class="clear"></div>
+						<div class="company">
+							<p >
+								Nightwish guitar , made by Zhang Xin,  fused the essence of many countries" Guitar manufacturing technology.
+							</p>
+							<p >
+								Because of the endless  pursuit of quality and benefit from our advanced technology, our guitar sounds better and performance better than others.
+							</p>
+							<p >
+								Like a rising star, Nightwish Guitar is becoming more and more popular in China. Now, in China, many musicians and music lovers  play nightwish guitar,our production has a excellent reputation.
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<div class="clear"></div>
+
+			</div>
+		</div>
+		<div id="navBar">
+			<a href="#item1" class="panel selected" name="home">Home</a>
+			<a href="#item4" class="panel" name="products">Products</a>
+			<a href="#item2" class="panel" name="news">News</a>
+			<!-- 			<a href="#item3" class="panel" name="newsDetail">News Detail</a> -->
+			<!-- 			<a href="#item5" class="panel" name="productsDetail">Products Detail</a> -->
+			<a href="#item6" class="panel" name="dealers">Dealers</a>
+			<a href="#item7" class="panel" name="about">About us</a>
+		</div>
+
+		<script>
+			$(document).ready(function() {
+
+				//
+				$('a.panel').click(function() {
+
+					$('a.panel').removeClass('selected');
+
+					var theName = $(this).attr('name');
+					$("#navBar a[name=" + theName + "]").addClass('selected');
+
+					current = $(this);
+
+					$('#wrapper').scrollTo($(this).attr('href'), 800);
+
+					BackgroundSlider.changeImage($(this).attr('name'));
+
+					return false;
+				});
+
+				$(window).resize(function() {
+					resizePanel();
+				});
+
+				//
+				BackgroundSlider.init();
+
+				$('#carousel').elastislide({
+					imageW : 180,
+					minItems : 4
+				});
+
+				$('#coverScrollContainer').coverscroll();
+
+				$('#productShow').slides({
+					preload : true,
+					preloadImage : 'images/loading.gif',
+					effect : 'slide, fade',
+					crossfade : true,
+					slideSpeed : 350,
+					fadeSpeed : 500,
+					generateNextPrev : true,
+					generatePagination : false
+				});
+			});
+
+			function resizePanel() {
+
+				width = $(window).width();
+				height = $(window).height();
+
+				mask_width = width * $('.item').length;
+
+				$('#debug').html(width + ' ' + height + ' ' + mask_width);
+
+				$('#wrapper, .item').css({
+					width : width,
+					height : height
+				});
+				$('#mask').css({
+					width : mask_width,
+					height : height
+				});
+				$('#wrapper').scrollTo($('a.selected').attr('href'), 0);
+
+			}
+		</script>
+
+		<script type="text/javascript">
+			var BackgroundSlider = (function() {
+
+				var $bxWrapper = $('#bx-wrapper'),
+				// loading status to show while preloading images
+				$bxLoading = $bxWrapper.find('div.bx-loading'),
+				// container for the bg images and respective canvas
+				$bxContainer = $bxWrapper.find('div.bx-container'),
+				// the bg images we are gonna use
+				$bxImgs = $bxContainer.children('img'),
+				// total number of bg images
+				bxImgsCount = $bxImgs.length, bxInterval = 3000, bxSpeed = 800;
+
+				// init function
+				init = function(interval, speed) {
+					interval = typeof interval !== 'undefined' ? interval : 3000;
+					speed = typeof bxSpeed !== 'undefined' ? bxSpeed : 800;
+
+					bxInterval = interval;
+					bxSpeed = speed;
+
+					// apply style for bg image and canvas
+					centerImageCanvas();
+					// hide loading status
+					$bxLoading.hide();
+					// initialize events
+					initEvents();
+					// start slideshow
+					// startSlideshow();
+					for (var i = 0; i <= 1; i++) {
+						$('div.bx-container').children().eq(Math.floor(Math.random() * (2))).prependTo('div.bx-container');
+					}
+
+					$('div.bx-container > img:first').show();
+				}, startSlideshow = function() {
+
+					setInterval(function() {
+						$('div.bx-container > img:first').fadeOut(bxSpeed).next().fadeIn(bxSpeed).end().appendTo('div.bx-container');
+					}, bxInterval);
+
+				},
+
+				// gets the image size and position in order to make it fullscreen and centered.
+				getImageDim = function(img) {
+
+					var $img = new Image();
+
+					$img.src = img;
+
+					var $win = $(window), w_w = $win.width(), w_h = $win.height(), r_w = w_h / w_w, i_w = $img.width, i_h = $img.height, r_i = i_h / i_w, new_w, new_h, new_left, new_top;
+
+					if (r_w > r_i) {
+
+						new_h = w_h;
+						new_w = w_h / r_i;
+
+					} else {
+
+						new_h = w_w * r_i;
+						new_w = w_w;
+
+					}
+
+					return {
+						width : new_w,
+						height : new_h,
+						left : (w_w - new_w ) / 2,
+						top : (w_h - new_h ) / 2
+					};
+
+				},
+				// initialize the events
+				initEvents = function() {
+
+					$(window).resize(function() {
+						//resizePanel();
+						centerImageCanvas();
+					});
+				},
+				// apply style for bg image and canvas
+				centerImageCanvas = function() {
+
+					$bxImgs.each(function(i) {
+
+						var $bximg = $(this), dim = getImageDim($bximg.attr('src')), styleCSS = {
+							width : dim.width,
+							height : dim.height,
+							left : dim.left,
+							top : dim.top
+						};
+
+						$bximg.css(styleCSS);
+
+					});
+
+				}
+				changeImage = function(imageName) {
+					var size = $('div.bx-container img[alt="' + imageName + '"]').size();
+					if (size == 0) {
+						return;
+					}
+
+					var ori = $('div.bx-container > img:first');
+					var target = $('div.bx-container img[alt="' + imageName + '"]').eq(Math.floor(Math.random() * (size)));
+					if (ori.attr("src") == target.attr("src")) {
+						return;
+					}
+					ori.fadeOut();
+					target.prependTo('div.bx-container').fadeIn();
+				}
+				// shows the image at position "pos"
+				return {
+					init : init,
+					changeImage : changeImage,
+					resize : centerImageCanvas
+				};
+			})();
+		</script>
+	</body>
+</html>
