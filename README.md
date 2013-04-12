@@ -9,11 +9,11 @@ Auto adjustment full screen background
 One page slide navigation
 
 
-![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/screenshot1.png)
+![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/blob/screenshot1.png)
 
-![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/screenshot2.png)
+![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/blob/screenshot2.png)
 
-![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/screenshot3.png)
+![Preview screenshot](https://raw.github.com/zhangxin840/guitarSiteDemo/blob/screenshot3.png)
 
 
 
