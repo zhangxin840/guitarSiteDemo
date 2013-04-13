@@ -4,8 +4,11 @@ Guitar site demo
 A guitar productor site demo.
 
 Feature:
+
 Modern web design
+
 Auto adjustment full screen background
+
 One page slide navigation
 
 
